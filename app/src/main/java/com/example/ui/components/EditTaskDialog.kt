@@ -351,6 +351,6 @@ private fun showDateTimePicker(context: Context, currentMillis: Long?, onSelecte
 }
 
 private fun formatDateTime(millis: Long): String {
-    val dateFormat = SimpleDateFormat("d MMM، h:mm a", Locale("ar"))
+    val dateFormat = SimpleDateFormat("d MMM، h:mm a", Locale.forLanguageTag("ar"))
     return dateFormat.format(millis)
 }

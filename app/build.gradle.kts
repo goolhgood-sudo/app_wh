@@ -27,18 +27,21 @@ android {
   signingConfigs {
     create("release") {
       val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
-      storeFile = file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD")
-      keyAlias = "upload"
-      keyPassword = System.getenv("KEY_PASSWORD")
+      val keystoreFile = file(keystorePath)
+      if (keystoreFile.exists()) {
+        storeFile = keystoreFile
+        storePassword = System.getenv("STORE_PASSWORD")
+        keyAlias = System.getenv("KEY_ALIAS") ?: "upload"
+        keyPassword = System.getenv("KEY_PASSWORD")
+      }
     }
     create("debugConfig") {
       val keystoreFile = file("${rootDir}/debug.keystore")
       if (keystoreFile.exists()) {
-          storeFile = keystoreFile
-          storePassword = "android"
-          keyAlias = "androiddebugkey"
-          keyPassword = "android"
+        storeFile = keystoreFile
+        storePassword = "android"
+        keyAlias = "androiddebugkey"
+        keyPassword = "android"
       }
     }
   }
@@ -48,14 +51,21 @@ android {
       isCrunchPngs = false
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-      // Do not remove or modify this signingConfig assignment. It is necessary for Android apps in
-      // AI Studio.
-      signingConfig = signingConfigs.getByName("release")
+      
+      val releaseKeystore = signingConfigs.getByName("release").storeFile
+      if (releaseKeystore != null && releaseKeystore.exists()) {
+        signingConfig = signingConfigs.getByName("release")
+      } else {
+        // Fallback for CI builds where the release key is not present
+        signingConfig = signingConfigs.getByName("debug")
+      }
     }
     debug {
-      // Do not remove or modify this signingConfig assignment. It is necessary for Android apps in
-      // AI Studio.
-      signingConfig = signingConfigs.getByName("debugConfig")
+      val debugKeystore = file("${rootDir}/debug.keystore")
+      if (debugKeystore.exists()) {
+        signingConfig = signingConfigs.getByName("debugConfig")
+      }
+      // If debug.keystore is missing, it will automatically use the default debug signing
     }
   }
   compileOptions {

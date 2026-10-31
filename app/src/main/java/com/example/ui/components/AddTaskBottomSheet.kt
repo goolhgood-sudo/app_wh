@@ -592,7 +592,7 @@ private fun formatDateTime(millis: Long): String {
     val today = Calendar.getInstance()
     val tomorrow = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, 1) }
 
-    val timeFormat = SimpleDateFormat("h:mm a", Locale("ar"))
+    val timeFormat = SimpleDateFormat("h:mm a", Locale.forLanguageTag("ar"))
     val timeStr = timeFormat.format(millis)
 
     return when {
@@ -601,7 +601,7 @@ private fun formatDateTime(millis: Long): String {
         cal.get(Calendar.YEAR) == tomorrow.get(Calendar.YEAR) &&
                 cal.get(Calendar.DAY_OF_YEAR) == tomorrow.get(Calendar.DAY_OF_YEAR) -> "غداً، $timeStr"
         else -> {
-            val dateFormat = SimpleDateFormat("d MMM، h:mm a", Locale("ar"))
+            val dateFormat = SimpleDateFormat("d MMM، h:mm a", Locale.forLanguageTag("ar"))
             dateFormat.format(millis)
         }
     }

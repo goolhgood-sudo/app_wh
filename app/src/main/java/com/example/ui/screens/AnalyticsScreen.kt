@@ -90,7 +90,7 @@ fun AnalyticsScreen(
 ) {
     val state by analyticsViewModel.analyticsState.collectAsState()
     val isLoading by analyticsViewModel.isLoading.collectAsState()
-    val todayDateFormatted = remember { SimpleDateFormat("EEEE، d MMMM", Locale("ar")).format(Date()) }
+    val todayDateFormatted = remember { SimpleDateFormat("EEEE، d MMMM", Locale.forLanguageTag("ar")).format(Date()) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         val listState = androidx.compose.foundation.lazy.rememberLazyListState()
