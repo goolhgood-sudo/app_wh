@@ -1,0 +1,6 @@
+{
+  "name": "تطبيق مهام المكي",
+  "description": "تطبيق مهام وإنتاجية متكامل وذكي باللغة العربية مع إدخال صوتي ومؤقت التركيز وتحليلات متقدمة",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

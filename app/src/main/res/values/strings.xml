@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">تطبيق مهام المكي</string>
+    <string name="nav_analytics">التحليلات</string>
+    <string name="nav_tasks">المهام</string>
+    <string name="nav_pomodoro">التركيز</string>
+    <string name="add_task">مهمة جديدة</string>
+    <string name="task_title_hint">ما الذي تريد إنجازه؟ (مثلاً: اجتماع غداً 5 مساءً)</string>
+    <string name="mic_listening">جارٍ الاستماع باللغة العربية...</string>
+    <string name="category_work">عمل</string>
+    <string name="category_personal">شخصي</string>
+    <string name="category_study">دراسة</string>
+    <string name="category_other">أخرى</string>
+    <string name="priority_high">مرتفعة</string>
+    <string name="priority_medium">متوسطة</string>
+    <string name="priority_low">منخفضة</string>
+</resources>
