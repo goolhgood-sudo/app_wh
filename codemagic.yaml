@@ -1,0 +1,42 @@
+workflows:
+  android-workflow:
+    name: Android Build Workflow
+    max_build_duration: 60
+    instance_type: linux_m2
+    environment:
+      groups:
+        - android-signing # Variables like STORE_PASSWORD, KEY_PASSWORD, etc.
+      vars:
+        PACKAGE_NAME: "com.aistudio.injaztodo.kxmpzq"
+      java: 21
+      android_sdk: 36
+    triggering:
+      events:
+        - push
+        - tag
+        - pull_request
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
+    scripts:
+      - name: Set up local.properties
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+      - name: Set up environment variables
+        script: |
+          # Copy .env.example to .env for the Secrets Gradle Plugin
+          cp .env.example .env
+      - name: Build Android APK
+        script: |
+          chmod +x gradlew
+          ./gradlew assembleRelease
+    artifacts:
+      - app/build/outputs/apk/release/*.apk
+    publishing:
+      email:
+        recipients:
+          - goolhgood@gmail.com
+        notify:
+          success: true
+          failure: true
