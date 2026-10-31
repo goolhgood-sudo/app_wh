@@ -2,14 +2,13 @@ workflows:
   android-workflow:
     name: Android Build Workflow
     max_build_duration: 60
-    instance_type: linux_m2
+    instance_type: linux
     environment:
       groups:
         - android-signing # Variables like STORE_PASSWORD, KEY_PASSWORD, etc.
       vars:
         PACKAGE_NAME: "com.aistudio.injaztodo.kxmpzq"
       java: 21
-      android_sdk: 36
     triggering:
       events:
         - push
